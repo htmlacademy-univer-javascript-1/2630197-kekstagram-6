@@ -1,18 +1,16 @@
-// Функция для проверки длины строки
-const checkLength = (text, maxLength) => text.length <= maxLength;
+function checkStringLength(string, maxLength) {
+  return string.length <= maxLength;
+}
 
-// Примеры использования
-checkLength('проверяемая строка', 20); // true
-checkLength('проверяемая строка', 18); // true
-checkLength('проверяемая строка', 10); // false
+checkStringLength('Строка для проверки', 20);
 
+function isPalindrome(str) {
+  const normalStr = str.replaceAll(' ', '').toLowerCase();
+  let reverStr = '';
+  for (let i = normalStr.length - 1; i >= 0; i--) {
+    reverStr += normalStr[i];
+  }
+  return normalStr === reverStr;
+}
 
-//Функция для проверки, является ли строка палиндромом
-const isPalindrome = (text) => {
-  const normalizedText = text.toLowerCase();
-  const reversedText = normalizedText.split('').reverse().join('');
-  return normalizedText === reversedText;
-};
-isPalindrome('топот'); // true
-isPalindrome('ДовОд'); // true
-isPalindrome('Кекс');  // false
+isPalindrome('довод');
