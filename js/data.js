@@ -47,26 +47,23 @@ const DESCRIPTION = [
 
 const ALL_PHOTO_COUNT = 25;
 
-const generatePhotoId = createRandomId(1, 25);
-const generatePhotoAvatar = getRandomInteger;
-const generatePhotoURL = createRandomId(1, 25);
-const generatePhotoLikes = getRandomInteger;
+const generatePhotoId = createRandomId(1, ALL_PHOTO_COUNT);
 
 const createPhotoComments = () => ({
   id: generatePhotoId(),
-  avatar: `img/avatar-${generatePhotoAvatar(1, 6)}.svg`,
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
   message: getRandomArrayElement(COMMENTS),
   name: getRandomArrayElement(NAMES)
 });
 
-const createPhotoDescription = () => ({
-  id: generatePhotoId(),
-  url: `photos/${generatePhotoURL()}.jpg`,
+const createPhotoDescription = (index) => ({
+  id: index,
+  url: `photos/${index}.jpg`,
   description: getRandomArrayElement(DESCRIPTION),
-  likes: generatePhotoLikes(15, 200),
+  likes: getRandomInteger(15, 200),
   comments: Array.from({length: getRandomInteger(0, 25)}, createPhotoComments),
 });
 
-const allPhoto = () => Array.from({length: ALL_PHOTO_COUNT}, createPhotoDescription);
+const allPhoto = () => Array.from({length: ALL_PHOTO_COUNT}, (_, pictureIndex) => createPhotoDescription(pictureIndex + 1));
 
 export {allPhoto};
