@@ -1,4 +1,6 @@
-import {isEscapeKey} from './util.js';
+import { isEscapeKey } from './util.js';
+import { resetScale } from './scale.js';
+import { init, reset } from './effects.js';
 
 const MAX_HASHTAG_COUNT = 5;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -30,6 +32,8 @@ const hideModal = () => {
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  resetScale();
+  reset();
 };
 
 const normalizeTags = (tagString) => tagString.trim().split(' ').filter((tag) => Boolean(tag.length));
@@ -78,3 +82,4 @@ pristine.addValidator(
 
 form.querySelector('.img-upload__input').addEventListener('change', onFileInputChange);
 form.querySelector('.img-upload__cancel').addEventListener('click', onCancelButtonClick);
+init();
