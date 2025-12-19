@@ -16,6 +16,7 @@ const createPictures = ({url, description, likes, comments, id}) => {
 };
 
 const renderMiniPictuers = (pictures) => {
+  container.querySelectorAll('.picture').forEach((element) => element.remove());
   const similarListFragment = document.createDocumentFragment();
   pictures.forEach((picture) => {
     similarListFragment.append(createPictures(picture));
