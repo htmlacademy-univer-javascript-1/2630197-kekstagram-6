@@ -63,49 +63,49 @@ const effectToSliderOptions = {
   }
 };
 
-const modalElement = document.querySelector('.img-upload');
-const imageElement = modalElement.querySelector('.img-upload__preview img');
-const sliderElement = modalElement.querySelector('.effect-level__slider');
-const sliderContainerElement = modalElement.querySelector('.img-upload__effect-level');
-const effectLevelElement = modalElement.querySelector('.effect-level__value');
+const imageUpload = document.querySelector('.img-upload');
+const imageUploadPreview = imageUpload.querySelector('.img-upload__preview img');
+const sliderEffectLevel = imageUpload.querySelector('.effect-level__slider');
+const imageUploadEffectLevel = imageUpload.querySelector('.img-upload__effect-level');
+const effectLevelValue = imageUpload.querySelector('.effect-level__value');
 
 let chosenEffect = Effect.DEFAULT;
 
 const setImageStyle = () => {
   if (chosenEffect === Effect.DEFAULT) {
-    imageElement.style.filter = null;
+    imageUploadPreview.style.filter = null;
     return;
   }
 
-  const {value} = effectLevelElement;
+  const {value} = effectLevelValue;
   const {style, unit} = effectToFilter[chosenEffect];
-  imageElement.style.filter = `${style}(${value}${unit})`;
+  imageUploadPreview.style.filter = `${style}(${value}${unit})`;
 };
 
 const onSliderUpdate = () => {
-  effectLevelElement.value = sliderElement.noUiSlider.get();
+  effectLevelValue.value = sliderEffectLevel.noUiSlider.get();
   setImageStyle();
 };
 
 const createSlider = ({min, max, step}) => {
-  noUiSlider.create(sliderElement, {
+  noUiSlider.create(sliderEffectLevel, {
     range: {min, max},
     step,
     start: max,
     connect: 'lower'
   });
-  sliderElement.noUiSlider.on('update', onSliderUpdate);
+  sliderEffectLevel.noUiSlider.on('update', onSliderUpdate);
 };
 
 const setSlider = () => {
-  if (sliderElement.noUiSlider) {
-    sliderElement.noUiSlider.destroy();
+  if (sliderEffectLevel.noUiSlider) {
+    sliderEffectLevel.noUiSlider.destroy();
   }
   setImageStyle();
-  sliderContainerElement.classList.add('hidden');
+  imageUploadEffectLevel.classList.add('hidden');
   if (chosenEffect !== Effect.DEFAULT) {
     createSlider(effectToSliderOptions[chosenEffect]);
-    sliderContainerElement.classList.remove('hidden');
+    imageUploadEffectLevel.classList.remove('hidden');
   }
 };
 
@@ -124,7 +124,7 @@ const onEffectsChange = (evt) => {
 
 const init = () => {
   setSlider();
-  modalElement.querySelector('.effects').addEventListener('change', onEffectsChange);
+  imageUpload.querySelector('.effects').addEventListener('change', onEffectsChange);
 };
 
 export { init, reset };
