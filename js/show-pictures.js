@@ -1,4 +1,3 @@
-
 const showPicturesTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');

@@ -1,7 +1,5 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-
 const uploadFile = document.querySelector('#upload-file');
-
 const onUploadImageChange = () => {
   const file = uploadFile.files[0];
 
