@@ -21,7 +21,7 @@ const onSmallerButtonClick = () => {
 
 const onBiggerButtonClick = () => {
   scaleImage(
-    Math.max(parseInt(scaleControlValue.value, 10) + SCALE_STEP, MAX_SCALE)
+    Math.min(parseInt(scaleControlValue.value, 10) + SCALE_STEP, MAX_SCALE)
   );
 };
 

@@ -25,7 +25,15 @@ const getRandomArrayElement = (elements) => elements[getRandomInteger(0, element
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const showAlert = (message) => {
+  // Сначала удаляем существующий alert, если есть
+  const existingAlert = document.querySelector('.data-error');
+  if (existingAlert) {
+    existingAlert.remove();
+  }
+
+  // Создаем новый alert
   const alert = document.createElement('div');
+  alert.classList.add('data-error');
   alert.style.position = 'absolute';
   alert.style.zIndex = '100';
   alert.style.left = '0';
@@ -37,6 +45,13 @@ const showAlert = (message) => {
   alert.style.backgroundColor = 'red';
   alert.textContent = message;
   document.body.append(alert);
+
+  // Удаляем через 5 секунд (как в оригинале)
+  setTimeout(() => {
+    if (alert.parentElement) {
+      alert.remove();
+    }
+  }, 5000);
 };
 
 const debounce = (callback, timeoutDelay = 500) => {
@@ -48,4 +63,3 @@ const debounce = (callback, timeoutDelay = 500) => {
 };
 
 export {getRandomInteger, createRandomId, getRandomArrayElement, isEscapeKey, showAlert, debounce};
-
