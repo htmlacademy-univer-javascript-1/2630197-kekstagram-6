@@ -1,5 +1,4 @@
 import { isEscapeKey } from './util.js';
-
 function showSuccessMessage() {
   const template = document.querySelector('#success').content.cloneNode(true);
   const message = template.querySelector('.success');
