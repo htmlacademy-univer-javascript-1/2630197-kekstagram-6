@@ -71,6 +71,11 @@ const effectLevelValue = imageUpload.querySelector('.effect-level__value');
 
 let chosenEffect = Effect.DEFAULT;
 
+const formatNumber = (value) => {
+  const num = parseFloat(value);
+  return parseFloat(num.toFixed(10)).toString();
+};
+
 const setImageStyle = () => {
   if (chosenEffect === Effect.DEFAULT) {
     imageUploadPreview.style.filter = null;
@@ -83,7 +88,8 @@ const setImageStyle = () => {
 };
 
 const onSliderUpdate = () => {
-  effectLevelValue.value = sliderEffectLevel.noUiSlider.get();
+  const sliderValue = sliderEffectLevel.noUiSlider.get();
+  effectLevelValue.value = formatNumber(sliderValue);
   setImageStyle();
 };
 
@@ -92,7 +98,15 @@ const createSlider = ({min, max, step}) => {
     range: {min, max},
     step,
     start: max,
-    connect: 'lower'
+    connect: 'lower',
+    format: {
+      to: function(value) {
+        return formatNumber(value);
+      },
+      from: function(value) {
+        return parseFloat(value);
+      }
+    }
   });
   sliderEffectLevel.noUiSlider.on('update', onSliderUpdate);
 };
