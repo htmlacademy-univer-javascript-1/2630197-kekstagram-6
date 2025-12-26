@@ -3,7 +3,6 @@ const MIN_SCALE = 25;
 const MAX_SCALE = 100;
 const DEFAULT_SCALE = 100;
 const PERCENT = 100;
-
 const imageUpload = document.querySelector('.img-upload');
 const scaleControlValue = imageUpload.querySelector('.scale__control--value');
 const imageUploadPreview = imageUpload.querySelector('.img-upload__preview img');
@@ -21,7 +20,7 @@ const onSmallerButtonClick = () => {
 
 const onBiggerButtonClick = () => {
   scaleImage(
-    Math.max(parseInt(scaleControlValue.value, 10) + SCALE_STEP, MAX_SCALE)
+    Math.min(parseInt(scaleControlValue.value, 10) + SCALE_STEP, MAX_SCALE)
   );
 };
 
