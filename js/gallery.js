@@ -1,5 +1,6 @@
 import {renderMiniPictuers} from './show-pictures.js';
 import {showBigPicture} from './big-pictures.js';
+
 const container = document.querySelector('.pictures');
 
 let pictures = [];

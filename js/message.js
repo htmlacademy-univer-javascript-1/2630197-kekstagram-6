@@ -1,44 +1,58 @@
 import { isEscapeKey } from './util.js';
 
-const successMessage = document.querySelector('#success').content.querySelector('.success');
-const errorMessage = document.querySelector('#error').content.querySelector('.error');
-const body = document.querySelector('body');
+function showSuccessMessage() {
+  const template = document.querySelector('#success').content.cloneNode(true);
+  const message = template.querySelector('.success');
+  message.style.zIndex = '10000';
+  document.body.appendChild(message);
 
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    hideMessage();
+  function onEsc(evt) {
+    if (isEscapeKey(evt)) {
+      close();
+    }
   }
-};
 
-function hideMessage() {
-  const messageElement = document.querySelector('.success') || document.querySelector('.error');
-  messageElement.remove();
-  document.removeEventListener('keydown', onDocumentKeydown);
-  body.removeEventListener('click', onBodyClick);
+  function close() {
+    message.remove();
+    document.removeEventListener('keydown', onEsc);
+  }
+
+  message.addEventListener('click', (evt) => {
+    if (!evt.target.closest('.success__inner')) {
+      close();
+    }
+  });
+
+  message.querySelector('.success__button').addEventListener('click', close);
+  document.addEventListener('keydown', onEsc);
 }
 
-function onBodyClick(evt) {
-  if (evt.target.closest('.success__inner') || evt.target.closest('.error__inner')) {
-    return;
+function showErrorMessage() {
+  const template = document.querySelector('#error').content.cloneNode(true);
+  const message = template.querySelector('.error');
+  message.style.zIndex = '10000';
+  document.body.appendChild(message);
+
+  function onEsc(evt) {
+    if (isEscapeKey(evt)) {
+      close();
+    }
   }
-  hideMessage();
+
+  function close() {
+    message.remove();
+    document.removeEventListener('keydown', onEsc);
+  }
+
+  message.addEventListener('click', (evt) => {
+    if (!evt.target.closest('.error__inner')) {
+      close();
+    }
+  });
+
+  message.querySelector('.error__button').addEventListener('click', close);
+  document.addEventListener('keydown', onEsc);
 }
 
-const showMessage = (messageElement, closeButtonClass) => {
-  body.append(messageElement);
-  document.addEventListener('keydown', onDocumentKeydown);
-  body.addEventListener('click', onBodyClick);
-  messageElement.querySelector(closeButtonClass).addEventListener('click', hideMessage);
-};
 
-const showSuccessMessage = () => {
-  showMessage(successMessage, '.success__button');
-};
-
-const showErrorMessage = () => {
-  showMessage(errorMessage, '.error__button');
-};
-
-export{showSuccessMessage, showErrorMessage};
-
+export { showSuccessMessage, showErrorMessage };
