@@ -1,5 +1,5 @@
 const BASE_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
-
+const STATUS_OK = 200;
 const ApiRoute = {
   GET_DATA:'/data',
   SEND_DATA: '/',
@@ -18,7 +18,7 @@ const ErrorMessage = {
 const load = (route, errorMessage, method = HttpMethod.GET, body = null) =>
   fetch(`${BASE_URL}${route}`, {method, body})
     .then((response) => {
-      if (response.status !== 200) {
+      if (response.status !== STATUS_OK) {
         throw new Error();
       }
       return response.json();

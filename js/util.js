@@ -20,8 +20,6 @@ const createRandomId = (min, max) => {
   };
 };
 
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const showAlert = (message) => {
@@ -53,8 +51,8 @@ const showAlert = (message) => {
     }
   }, 5000);
 };
-
-const debounce = (callback, timeoutDelay = 500) => {
+const DEFAULT_DEBOUNCE_DELAY = 500;
+const debounce = (callback, timeoutDelay = DEFAULT_DEBOUNCE_DELAY) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
@@ -62,4 +60,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export {getRandomInteger, createRandomId, getRandomArrayElement, isEscapeKey, showAlert, debounce};
+export {getRandomInteger, createRandomId, isEscapeKey, showAlert, debounce};

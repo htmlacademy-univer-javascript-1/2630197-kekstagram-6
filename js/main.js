@@ -5,10 +5,10 @@ import { getData, sendData } from './fetch.js';
 import { showAlert, debounce } from './util.js';
 import { init, getFilterPictures } from './filter.js';
 import './own-photos.js';
-
+const RENDER_DELAY = 500;
 getData()
   .then((data) => {
-    init(data, debounce(renderGallery, 500));
+    init(data, debounce(renderGallery, RENDER_DELAY));
     renderGallery(getFilterPictures());
   })
   .catch((err) => showAlert(err.message));

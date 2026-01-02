@@ -1,58 +1,67 @@
 import { isEscapeKey } from './util.js';
 
+const MESSAGE_Z_INDEX = 10000;
+
 function showSuccessMessage() {
   const template = document.querySelector('#success').content.cloneNode(true);
   const message = template.querySelector('.success');
-  message.style.zIndex = '10000';
+  const successButton = message.querySelector('.success__button');
+
+  message.style.zIndex = MESSAGE_Z_INDEX;
   document.body.appendChild(message);
 
-  function onEsc(evt) {
+  const onDocumentKeydown = (evt) => {
     if (isEscapeKey(evt)) {
-      close();
+      evt.preventDefault();
+      onSuccessClose();
     }
-  }
+  };
 
-  function close() {
-    message.remove();
-    document.removeEventListener('keydown', onEsc);
-  }
-
-  message.addEventListener('click', (evt) => {
+  const onOverlayClick = (evt) => {
     if (!evt.target.closest('.success__inner')) {
-      close();
+      onSuccessClose();
     }
-  });
+  };
 
-  message.querySelector('.success__button').addEventListener('click', close);
-  document.addEventListener('keydown', onEsc);
+  function onSuccessClose() {
+    message.remove();
+    document.removeEventListener('keydown', onDocumentKeydown);
+  }
+
+  message.addEventListener('click', onOverlayClick);
+  successButton.addEventListener('click', onSuccessClose);
+  document.addEventListener('keydown', onDocumentKeydown);
 }
 
 function showErrorMessage() {
   const template = document.querySelector('#error').content.cloneNode(true);
   const message = template.querySelector('.error');
-  message.style.zIndex = '10000';
+  const errorButton = message.querySelector('.error__button');
+
+  message.style.zIndex = MESSAGE_Z_INDEX;
   document.body.appendChild(message);
 
-  function onEsc(evt) {
+  const onDocumentKeydown = (evt) => {
     if (isEscapeKey(evt)) {
-      close();
+      evt.preventDefault();
+      onErrorClose();
     }
-  }
+  };
 
-  function close() {
-    message.remove();
-    document.removeEventListener('keydown', onEsc);
-  }
-
-  message.addEventListener('click', (evt) => {
+  const onOverlayClick = (evt) => {
     if (!evt.target.closest('.error__inner')) {
-      close();
+      onErrorClose();
     }
-  });
+  };
 
-  message.querySelector('.error__button').addEventListener('click', close);
-  document.addEventListener('keydown', onEsc);
+  function onErrorClose() {
+    message.remove();
+    document.removeEventListener('keydown', onDocumentKeydown);
+  }
+
+  message.addEventListener('click', onOverlayClick);
+  errorButton.addEventListener('click', onErrorClose);
+  document.addEventListener('keydown', onDocumentKeydown);
 }
-
 
 export { showSuccessMessage, showErrorMessage };
